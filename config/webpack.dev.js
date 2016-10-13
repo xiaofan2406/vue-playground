@@ -16,6 +16,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.vue', '.json'],
     alias: {
+      widgets: `${paths.srcDir}/widgets`,
       src: paths.srcDir, // this allows import `src` folder without knowing its relative path
       store: `${paths.srcDir}/store`
     }

@@ -416,3 +416,6 @@ th {
 /*******************************
          Site Overrides
 *******************************/
+body {
+  padding-right: 0!important;
+}
