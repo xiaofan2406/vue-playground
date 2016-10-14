@@ -1,5 +1,11 @@
 export default {
   ADD_PROJECT: 'project/ADD_PROJECT',
   REMOVE_PROJECT: 'project/REMOVE_PROJECT',
-  SET_NAME: 'project/SET_NAME'
+  SET_PROJECT_NAME: 'project/SET_PROJECT_NAME',
+  ADD_TODO: 'project/ADD_TODO',
+  REMOVE_TODO: 'project/REMOVE_TODO',
+  TOGGLE_TODO: 'project/TOGGLE_TODO',
+  SET_SEARCH: 'project/SET_SEARCH',
+  SET_FILTER: 'project/SET_FILTER',
+  SET_TODO_NAME: 'project/SET_TODO_NAME'
 };

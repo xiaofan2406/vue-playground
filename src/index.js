@@ -2,6 +2,7 @@ import Vue from 'vue';
 import { sync } from 'vuex-router-sync';
 import Element from 'element-ui';
 import 'element-ui/lib/theme-default/index.css';
+import 'animate.css';
 
 import './index.css';
 import App from './app/App';

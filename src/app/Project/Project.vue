@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { v4 } from 'node-uuid';
 import { projectActions } from 'store/actions';
 import ProjectList from './ProjectList';
 
@@ -21,7 +22,10 @@ export default {
   },
   methods: {
     newProject(e) {
-      this.$store.dispatch(projectActions.ADD_PROJECT, e.target.value);
+      this.$store.dispatch(projectActions.ADD_PROJECT, {
+        id: v4(),
+        name: e.target.value
+      });
       e.target.value = '';
     }
   }

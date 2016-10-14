@@ -1,5 +1,4 @@
 import { set as vueSet, delete as vueDelete } from 'vue';
-import { v4 } from 'node-uuid';
 
 import getters from './project-getters';
 import actions from './project-actions';
@@ -8,9 +7,22 @@ import actions from './project-actions';
 const mutations = {
   addProject: 'project/addProject',
   removeProject: 'project/removeProject',
-  setName: 'project/setName'
+  setProjectName: 'project/setProjectName',
+  addTodo: 'project/addTodo',
+  removeTodo: 'project/removeTodo'
 };
 
+// export default {
+//   ADD_PROJECT: 'project/ADD_PROJECT',
+//   REMOVE_PROJECT: 'project/REMOVE_PROJECT',
+//   SET_PROJECT_NAME: 'project/SET_PROJECT_NAME',
+//   ADD_TODO: 'project/ADD_TODO',
+//   REMOVE_TODO: 'project/REMOVE_TODO',
+//   TOGGLE_TODO: 'project/TOGGLE_TODO',
+//   SET_SEARCH: 'project/SET_SEARCH',
+//   SET_FILTER: 'project/SET_FILTER',
+//   SET_TODO_NAME: 'project/SET_TODO_NAME'
+// };
 
 export default {
   state: {
@@ -19,11 +31,13 @@ export default {
     {
       id: string,
       name: string,
-      todos: [{
-        id: string,
-        name: string,
-        completed: bool
-      }]
+      todos: {
+        id: {
+          id: string,
+          name: string,
+          completed: bool
+        }
+      }
     }
     */
   },
@@ -34,8 +48,14 @@ export default {
     [mutations.removeProject](state, payload) {
       vueDelete(state.projects, payload);
     },
-    [mutations.setName](state, payload) {
+    [mutations.setProjectName](state, payload) {
       state.projects[payload.id].name = payload.name;
+    },
+    [mutations.addTodo](state, payload) {
+      vueSet(state.projects[payload.projectId].todos, payload.id, payload);
+    },
+    [mutations.removeTodo](state, payload) {
+      vueDelete(state.projects[payload.projectId].todos, payload.id);
     }
   },
   getters: {
@@ -43,20 +63,23 @@ export default {
   },
   actions: {
     [actions.ADD_PROJECT]({ commit }, project) {
-      if (typeof project === 'string') {
-        commit(mutations.addProject, {
-          id: v4(),
-          name: project
-        });
-      } else {
-        commit(mutations.addProject, project);
-      }
+      const payload = {
+        todos: {},
+        ...project
+      };
+      commit(mutations.addProject, payload);
     },
     [actions.REMOVE_PROJECT]({ commit }, id) {
       commit(mutations.removeProject, id);
     },
-    [actions.SET_NAME]({ commit }, newName) {
+    [actions.SET_PROJECT_NAME]({ commit }, newName) {
       commit(mutations.setName, newName);
+    },
+    [actions.ADD_TODO]({ commit }, todo) {
+      commit(mutations.addTodo, todo);
+    },
+    [actions.REMOVE_TODO]({ commit }, { projectId, id }) {
+      commit(mutations.removeTodo, { projectId, id });
     }
   }
 };

@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <el-row :gutter="16" v-for="project in ALL_PROJECTS">
-      <el-col :span="24" :key="project.id">
-        <ProjectSingle :project="project" class="ProjectSingle"></ProjectSingle>
-      </el-col>
-    </el-row>
-  </div>
+  <transition-group
+    enter-active-class="animated zoomInDown"
+    leave-active-class="animated bounceOutRight"
+  >
+    <el-col v-for="project in ALL_PROJECTS" :span="24" :key="project.id">
+      <ProjectSingle :project="project" class="ProjectSingle"></ProjectSingle>
+    </el-col>
+  </transition-group>
 </template>
 
 <script>
@@ -25,7 +26,6 @@ export default {
       ALL_PROJECTS
     })
   }
-
 };
 </script>
 
